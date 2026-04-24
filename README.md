@@ -1,5 +1,3 @@
-Viewed basic-05-unit-advertising-connection.html:1-400
-
 針對 **`basic-05-unit-advertising-connection` (BLE 廣播機制與連線流程)** 單元，這是學員從「有線控制」轉向「無線物聯網 (IoT)」的物理與邏輯門檻。它要求學員具備 **事件驅動編程 (Event-Driven Programming)** 的思維，學習設備如何宣告自身身份、如何透過硬體（如 LED）即時反映連線狀態，以及如何將抽象的信號強度 (RSSI) 轉化為具備感知能力的 **「近場偵測」** 應用。
 
 以下是在 **GitHub Classroom** 部署其作業 (Assignments) 的具體建議：
