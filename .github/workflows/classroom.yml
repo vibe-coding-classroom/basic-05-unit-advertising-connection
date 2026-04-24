@@ -26,14 +26,14 @@ jobs:
           max-score: 30
 
       # Test 2: Connection Guard Check
-      # Check if startAdvertising() is called (likely in onDisconnect)
+      # Check if startAdvertising() is called at least twice (setup + onDisconnect)
       - name: Connection Guard Check
         id: connection-guard-check
         uses: education/autograding-command-grader@v1
         with:
           test-name: "Task 2: Auto-restart Advertising"
           setup-command: ""
-          command: "grep -q 'startAdvertising()' src/main.cpp"
+          command: "[ $(grep -c 'startAdvertising()' src/main.cpp) -ge 2 ]"
           timeout: 1
           max-score: 40
 
