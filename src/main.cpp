@@ -25,9 +25,8 @@ class MyServerCallbacks: public BLEServerCallbacks {
       deviceConnected = false;
       Serial.println(">>> Device Disconnected");
       // Task 2: Self-healing - Restart advertising
-      // TODO: Add code here to restart advertising when a device disconnects
-      // Hint: Use the server pointer to call the advertising start method
-      Serial.println(">>> Ready for new connections...");
+      pServer->startAdvertising(); 
+      Serial.println(">>> Restarted Advertising...");
     }
 };
 
