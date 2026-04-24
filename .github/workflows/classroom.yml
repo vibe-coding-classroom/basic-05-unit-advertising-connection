@@ -1,0 +1,60 @@
+name: GitHub Classroom Autograding
+on: [push]
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  build:
+    name: Autograding
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Test 1: Name Master Check
+      # Check if DEVICE_NAME in include/ble_app.h is updated from the default "Vibe-Student-00"
+      - name: Name Master Check
+        id: name-master-check
+        uses: education/autograding-command-grader@v1
+        with:
+          test-name: "Task 1: Device Name Updated"
+          setup-command: ""
+          command: "! grep -q 'DEVICE_NAME \"Vibe-Student-00\"' include/ble_app.h"
+          timeout: 1
+          max-score: 30
+
+      # Test 2: Connection Guard Check
+      # Check if startAdvertising() is called (likely in onDisconnect)
+      - name: Connection Guard Check
+        id: connection-guard-check
+        uses: education/autograding-command-grader@v1
+        with:
+          test-name: "Task 2: Auto-restart Advertising"
+          setup-command: ""
+          command: "grep -q 'startAdvertising()' src/main.cpp"
+          timeout: 1
+          max-score: 40
+
+      # Test 3: Report Completion Check
+      # Check if MAC Address placeholder in README.md is replaced
+      - name: Report Completion Check
+        id: report-check
+        uses: education/autograding-command-grader@v1
+        with:
+          test-name: "Task 3: Report MAC Address"
+          setup-command: ""
+          command: "! grep -q '在此填入你的設備 MAC 地址' README.md"
+          timeout: 1
+          max-score: 30
+
+      # Autograding Reporter
+      - name: Autograding Reporter
+        uses: education/autograding-grading-reporter@v1
+        env:
+          NAME-MASTER-CHECK_RESULTS: "${{steps.name-master-check.outputs.result}}"
+          CONNECTION-GUARD-CHECK_RESULTS: "${{steps.connection-guard-check.outputs.result}}"
+          REPORT-CHECK_RESULTS: "${{steps.report-check.outputs.result}}"
+        with:
+          runners: name-master-check,connection-guard-check,report-check
